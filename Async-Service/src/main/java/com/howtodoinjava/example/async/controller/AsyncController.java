@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.howtodoinjava.example.async.model.EmployeeAddresses;
 import com.howtodoinjava.example.async.model.EmployeeNames;
 import com.howtodoinjava.example.async.model.EmployeePhone;
+import com.howtodoinjava.example.async.model.EmployeeProfiles;
 import com.howtodoinjava.example.async.service.AsyncService;
 
 @RestController
@@ -31,12 +32,14 @@ public class AsyncController {
 		CompletableFuture<EmployeeAddresses> employeeAddress = service.getEmployeeAddress();
 		CompletableFuture<EmployeeNames> employeeName = service.getEmployeeName();
 		CompletableFuture<EmployeePhone> employeePhone = service.getEmployeePhone();
+		CompletableFuture<EmployeeProfiles> employeeProfile = service.getEmployeeProfile();
 
 		// Wait until they are all done
-		CompletableFuture.allOf(employeeAddress, employeeName, employeePhone).join();
+		CompletableFuture.allOf(employeeAddress, employeeName, employeePhone, employeeProfile).join();
 		
 		log.info("EmployeeAddress--> " + employeeAddress.get());
 		log.info("EmployeeName--> " + employeeName.get());
 		log.info("EmployeePhone--> " + employeePhone.get());
+		log.info("EmployeeProfile--> " + employeeProfile.get());
 	}
 }

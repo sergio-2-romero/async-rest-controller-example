@@ -14,6 +14,8 @@ import com.howtodoinjava.example.sampleservice.model.EmployeeAddresses;
 import com.howtodoinjava.example.sampleservice.model.EmployeeName;
 import com.howtodoinjava.example.sampleservice.model.EmployeeNames;
 import com.howtodoinjava.example.sampleservice.model.EmployeePhone;
+import com.howtodoinjava.example.sampleservice.model.EmployeeProfile;
+import com.howtodoinjava.example.sampleservice.model.EmployeeProfiles;
 
 @RestController
 public class EmployeeDataController 
@@ -94,5 +96,31 @@ public class EmployeeDataController
 		employeeNamesList.setEmployeeNameList(employeeList);
 
 		return employeeNamesList;
+	}
+
+	@RequestMapping(value = "/profiles", method = RequestMethod.GET)
+	public EmployeeProfiles getProfiles() {
+		log.info("get profiles Start");
+
+		EmployeeProfiles employeeProfilesList = new EmployeeProfiles();
+		EmployeeProfile employeeProfile1 = new EmployeeProfile();
+		EmployeeProfile employeeProfile2 = new EmployeeProfile();
+
+		List<EmployeeProfile> profileList = new ArrayList<EmployeeProfile>();
+		{
+			employeeProfile1.setName("Quality Assurance");
+			employeeProfile1.setShortName("QA");
+		}
+		{
+			employeeProfile2.setName("Developer");
+			employeeProfile2.setShortName("DEV");
+		}
+
+		profileList.add(employeeProfile1);
+		profileList.add(employeeProfile2);
+
+		employeeProfilesList.setEmployeeProfileList(profileList);
+
+		return  employeeProfilesList;
 	}
 }

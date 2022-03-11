@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import com.howtodoinjava.example.async.model.EmployeeAddresses;
 import com.howtodoinjava.example.async.model.EmployeeNames;
 import com.howtodoinjava.example.async.model.EmployeePhone;
+import com.howtodoinjava.example.async.model.EmployeeProfiles;
 
 @Service
 public class AsyncService {
@@ -63,6 +64,19 @@ public class AsyncService {
 		Thread.sleep(1000L);	//Intentional delay
 		log.info("employeePhoneData completed");
 		return CompletableFuture.completedFuture(employeePhoneData);
+	}
+
+	@Async("asyncExecutor")
+	public CompletableFuture<EmployeeProfiles> getEmployeeProfile() throws InterruptedException
+	{
+		log.info("getEmployeeProfile Starts");
+		EmployeeProfiles employeeProfileData = restTemplate.getForObject("http://localhost:8082/profiles", EmployeeProfiles.class);
+
+		log.info("employeeProfileData, {}", employeeProfileData);
+		Thread.sleep(1000L);	//Intentional delay
+		log.info("employeeProfileData completed");
+		return CompletableFuture.completedFuture(employeeProfileData);
+		
 	}
 
 }
